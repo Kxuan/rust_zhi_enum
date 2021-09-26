@@ -1,0 +1,2 @@
+[workspace]
+members = ["primitive_enum", "primitive_enum_macro"]
