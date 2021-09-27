@@ -10,10 +10,10 @@
       <sourceFolder url="file://$MODULE_DIR$/target/debug/build/serde-b501904e7bef0c77/out" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/debug/build/syn-9ce6f4a6aeb56b76/out" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/target/debug/build/proc-macro2-c95750d44b732c66/out" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/primitive_enum/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/primitive_enum/tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/primitive_enum_macro" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/primitive_enum_macro/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/zhi_enum/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/zhi_enum/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/zhi_enum_derive" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/zhi_enum_derive/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

@@ -10,18 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8b668a1-7e76-4dcc-85d5-ed1baff8621a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/rust-primitive-enum.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/primitive_enum/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/primitive_enum/src/lib.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/primitive_enum/tests/test.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/primitive_enum_macro/Cargo.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/primitive_enum_macro/src/discriminant.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/primitive_enum_macro/src/lib.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zhi_enum/tests/expanded.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rust-primitive-enum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rust-primitive-enum.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/primitive_enum/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/primitive_enum/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum/src/lib.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/primitive_enum/tests/test.rs" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum/tests/test.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/primitive_enum_macro/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum_derive/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/primitive_enum_macro/src/discriminant.rs" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum_derive/src/discriminant.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/primitive_enum_macro/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum_derive/src/lib.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +69,7 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/primitive-enum-macro" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -90,46 +88,9 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Cargo.Test test">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Cargo.Test test (1)">
     <configuration name="Test test (1)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package primitive_enum_macro --test test test -- --exact" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <option name="channel" value="DEFAULT" />
-      <option name="requiredFeatures" value="true" />
-      <option name="allFeatures" value="false" />
-      <option name="emulateTerminal" value="false" />
-      <option name="withSudo" value="false" />
-      <option name="backtrace" value="SHORT" />
-      <envs />
-      <option name="isRedirectInput" value="false" />
-      <option name="redirectInputPath" value="" />
-      <method v="2">
-        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test test (2)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package primitive_enum_macro --lib test -- --exact" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <option name="channel" value="DEFAULT" />
-      <option name="requiredFeatures" value="true" />
-      <option name="allFeatures" value="false" />
-      <option name="emulateTerminal" value="false" />
-      <option name="withSudo" value="false" />
-      <option name="backtrace" value="SHORT" />
-      <envs />
-      <option name="isRedirectInput" value="false" />
-      <option name="redirectInputPath" value="" />
-      <method v="2">
-        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test test (3)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package primitive_enum --test expanded test -- --exact" />
+      <option name="command" value="test --package zhi_enum --test expanded test -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -145,7 +106,7 @@
       </method>
     </configuration>
     <configuration name="Test test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package primitive_enum --test test test -- --exact" />
+      <option name="command" value="test --package zhi_enum --test test test -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="channel" value="DEFAULT" />
       <option name="requiredFeatures" value="true" />
@@ -160,29 +121,15 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test test_expanded" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
-      <option name="command" value="test --package primitive_enum --test expanded test_expanded -- --exact" />
-      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <option name="channel" value="DEFAULT" />
-      <option name="requiredFeatures" value="true" />
-      <option name="allFeatures" value="false" />
-      <option name="emulateTerminal" value="false" />
-      <option name="withSudo" value="false" />
-      <option name="backtrace" value="SHORT" />
-      <envs />
-      <option name="isRedirectInput" value="false" />
-      <option name="redirectInputPath" value="" />
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cargo.Test test" />
-        <item itemvalue="Cargo.Test test (3)" />
         <item itemvalue="Cargo.Test test (1)" />
-        <item itemvalue="Cargo.Test test (2)" />
-        <item itemvalue="Cargo.Test test_expanded" />
+        <item itemvalue="Cargo.Test test" />
       </list>
     </recent_temporary>
   </component>
@@ -209,6 +156,8 @@
       <workItem from="1632665247602" duration="51000" />
       <workItem from="1632665310754" duration="1678000" />
       <workItem from="1632666997926" duration="6889000" />
+      <workItem from="1632756931952" duration="31000" />
+      <workItem from="1632757570451" duration="2809000" />
     </task>
     <servers />
   </component>

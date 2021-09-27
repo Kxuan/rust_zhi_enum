@@ -1,2 +1,2 @@
 [workspace]
-members = ["primitive_enum", "primitive_enum_macro"]
+members = ["zhi_enum", "zhi_enum_derive"]

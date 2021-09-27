@@ -1,14 +1,16 @@
 [package]
-name = "primitive_enum"
+name = "zhi_enum_derive"
 version = "0.1.0"
 edition = "2021"
 license = "BSD-3-Clause"
 
 [lib]
+proc-macro = true
 
 [dependencies]
-primitive_enum_macro = { version = "0.1.0", path = "../primitive_enum_macro" }
-
+proc-macro2 = "0.4.30"
+quote = "1.0"
+syn = { version = "1.0", features = ["full", "extra-traits"] }
 
 [dev-dependencies]
 # Compatibility test

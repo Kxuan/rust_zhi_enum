@@ -1,4 +1,4 @@
-pub use primitive_enum_macro::{EnumConvert, EnumTryConvert};
+pub use zhi_enum_derive::{EnumConvert, EnumTryConvert};
 
 #[derive(Debug, Clone)]
 pub struct UnknownVariantError {}

@@ -5,16 +5,18 @@ use std::collections::HashSet;
 
 use quote::quote;
 use syn::{Data, DeriveInput, Error, Expr, Ident, parse_macro_input, Result, Variant};
+use syn::LitInt;
 use syn::parse::{Parse, ParseStream};
+use syn::parse_quote;
 use syn::spanned::Spanned;
 
 use discriminant::Discriminant;
 
-mod discriminant;
-
 mod kw {
     syn::custom_keyword!(unknown);
 }
+
+mod discriminant;
 
 #[derive(Debug)]
 struct FieldAttributeArgs {
@@ -130,7 +132,7 @@ impl EnumDefinition {
                 s.1.clone()
             }
             None => {
-                self.next_discriminant.next()
+                self.next_discriminant.next(v.span())
             }
         };
 
@@ -141,7 +143,7 @@ impl EnumDefinition {
     }
     fn parse_variant(&mut self, v: &Variant) -> Result<VariantKind> {
         for attr in &v.attrs {
-            if !attr.path.is_ident("primitive_enum") {
+            if !attr.path.is_ident("zhi_enum") {
                 continue;
             }
             let args = attr.parse_args::<FieldAttributeArgs>()?;
@@ -159,7 +161,7 @@ impl Parse for EnumDefinition {
     }
 }
 
-#[proc_macro_derive(EnumConvert, attributes(primitive_enum))]
+#[proc_macro_derive(EnumConvert, attributes(zhi_enum))]
 pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let enum_info = match EnumDefinition::new(input) {
@@ -180,6 +182,7 @@ pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
         normal_variants_from.push(quote! {
             #disc => Self::#ident,
         });
+        println!("Normal: {:?} = {:?}", ident, disc);
         normal_variants_into.push(quote! {
             Self::#ident => #disc,
         })
@@ -231,7 +234,7 @@ pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
     TokenStream::from(expanded)
 }
 
-#[proc_macro_derive(EnumTryConvert, attributes(primitive_enum))]
+#[proc_macro_derive(EnumTryConvert, attributes(zhi_enum))]
 pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
     let enum_info = match EnumDefinition::new(input) {
@@ -262,8 +265,8 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
 
     match enum_info.unknown {
         None => {
-            unknown_variant_try_from = quote! { v => Err(::primitive_enum::UnknownVariantError{}),};
-            unknown_variant_try_into = quote! { _ => Err(::primitive_enum::UnknownVariantError{}),};
+            unknown_variant_try_from = quote! { v => Err(::zhi_enum::UnknownVariantError{}),};
+            unknown_variant_try_into = quote! { _ => Err(::zhi_enum::UnknownVariantError{}),};
         }
         Some(variant) => {
             let ident = variant.ident;
@@ -276,7 +279,7 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
     let try_into_repr = Ident::new(format!("try_into_{}", repr.to_string()).as_str(), repr.span());
     let expanded = quote! {
         impl ::core::convert::TryFrom<#repr> for #ident {
-            type Error = primitive_enum::UnknownVariantError;
+            type Error = zhi_enum::UnknownVariantError;
             fn try_from(v: #repr) -> ::core::result::Result<Self, Self::Error> {
                 match v {
                     #(#normal_variants_from)*
@@ -286,7 +289,7 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
         }
 
         impl ::core::convert::TryInto<#repr> for #ident {
-            type Error = ::primitive_enum::UnknownVariantError;
+            type Error = ::zhi_enum::UnknownVariantError;
             fn try_into(self) -> ::core::result::Result<#repr, Self::Error> {
                 match self {
                     #(#normal_variants_into)*
@@ -296,7 +299,7 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
         }
 
         impl #ident {
-            fn #try_into_repr(self) -> ::core::result::Result<#repr, ::primitive_enum::UnknownVariantError> {
+            fn #try_into_repr(self) -> ::core::result::Result<#repr, ::zhi_enum::UnknownVariantError> {
                <#ident as ::core::convert::TryInto::<#repr>>::try_into(self)
             }
         }

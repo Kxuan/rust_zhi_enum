@@ -1,8 +1,7 @@
-use proc_macro::Span;
-
 use syn::{Error, Expr, Ident,
           LitInt, parse_quote,
           Result};
+use quote::__private::Span;
 
 #[derive(Debug)]
 pub(crate) struct Discriminant {
@@ -38,8 +37,9 @@ impl Discriminant {
         })
     }
 
-    pub(crate) fn next(&mut self) -> Expr {
-        let literal = LitInt::new(format!("{}_{}", self.v, self.repr).as_str(), Span::call_site().into());
+    pub(crate) fn next(&mut self, span: Span) -> Expr {
+        let s = format!("{}_{}", self.v, self.repr);
+        let literal = LitInt::new(s.as_str(), span.clone());
         self.v += 1;
 
         match &self.base {
@@ -49,15 +49,17 @@ impl Discriminant {
                 }
             }
             Some(expr) => {
-                parse_quote! {
-                    #expr + #literal
-                }
+                let repr = Ident::new(&self.repr, span.clone());
+                let q = parse_quote! {
+                    #repr::wrapping_add(#expr, #literal)
+                };
+                q
             }
         }
     }
 
     pub(crate) fn reset(&mut self, base: Expr) {
         self.base = Some(base);
-        self.v = 0;
+        self.v = 1;
     }
 }
