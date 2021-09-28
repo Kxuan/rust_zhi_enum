@@ -1,6 +1,4 @@
 extern crate proc_macro;
-use num_enum::FromPrimitive;
-
 
 use zhi_enum_derive::{EnumConvert, EnumTryConvert};
 
@@ -14,6 +12,8 @@ enum NumberConvert {
     Four,
     Ten = 10,
     Eleven,
+    Twenty = 10 + 10,
+    TwentyOne,
     #[zhi_enum(unknown)]
     Unknown(u8),
 }
@@ -28,6 +28,8 @@ enum NumberTryConvert {
     Four,
     Ten = 10,
     Eleven,
+    Twenty = 10 + 10,
+    TwentyOne,
     #[zhi_enum(unknown)]
     Unknown(u8),
 }
@@ -41,4 +43,6 @@ fn test() {
     assert_eq!(NumberTryConvert::Ten.try_into_u8().unwrap(), 10u8);
     assert_eq!(NumberConvert::Eleven.into_u8(), 11u8);
     assert_eq!(NumberTryConvert::Eleven.try_into_u8().unwrap(), 11u8);
+    assert_eq!(NumberConvert::TwentyOne.into_u8(), 21u8);
+    assert_eq!(NumberTryConvert::TwentyOne.try_into_u8().unwrap(), 21u8);
 }

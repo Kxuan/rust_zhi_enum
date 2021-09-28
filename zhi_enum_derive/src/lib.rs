@@ -3,14 +3,12 @@ extern crate proc_macro;
 use proc_macro::TokenStream;
 use std::collections::HashSet;
 
-use quote::quote;
-use syn::{Data, DeriveInput, Error, Expr, Ident, parse_macro_input, Result, Variant};
-use syn::LitInt;
+use quote::{quote, ToTokens};
+use syn::{Data, DeriveInput, Error, Ident, parse_macro_input, Result, Variant};
 use syn::parse::{Parse, ParseStream};
-use syn::parse_quote;
 use syn::spanned::Spanned;
 
-use discriminant::Discriminant;
+use discriminant::{Discriminant as Disc, Generator as DiscGen};
 
 mod kw {
     syn::custom_keyword!(unknown);
@@ -44,7 +42,7 @@ struct UnknownVariant {
 #[derive(Debug)]
 struct NormalVariant {
     ident: Ident,
-    discriminant: Expr,
+    discriminant: Disc,
 }
 
 #[derive(Debug)]
@@ -54,7 +52,7 @@ struct EnumDefinition {
     normals: Vec<NormalVariant>,
 
     repr: Ident,
-    next_discriminant: Discriminant,
+    next_discriminant: DiscGen,
 }
 
 enum VariantKind {
@@ -94,7 +92,7 @@ impl EnumDefinition {
             ident: input.ident,
             unknown: None,
             normals: vec![],
-            next_discriminant: Discriminant::new(&repr)?,
+            next_discriminant: DiscGen::new(&repr)?,
             repr,
         };
         let mut variant_idents = HashSet::new();
@@ -128,8 +126,7 @@ impl EnumDefinition {
     fn parse_variant_normal(&mut self, v: &Variant) -> Result<NormalVariant> {
         let discriminant = match &v.discriminant {
             Some(s) => {
-                self.next_discriminant.reset(s.1.clone());
-                s.1.clone()
+                self.next_discriminant.reset(s.1.clone(), v.span())
             }
             None => {
                 self.next_discriminant.next(v.span())
@@ -173,18 +170,29 @@ pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
     let repr = enum_info.repr;
     let ident = enum_info.ident;
 
+    let mut compute_values = Vec::new();
+    let mut n_cv = 0;
     let mut normal_variants_from = Vec::new();
     let mut normal_variants_into = Vec::new();
     for variant in enum_info.normals {
-        let disc = variant.discriminant;
+        let mut disc_expr = variant.discriminant.to_expr().to_token_stream();
         let ident = variant.ident;
 
+        if variant.discriminant.have_base() {
+            let cv_name = format!("compute_{}", n_cv);
+            let ident = Ident::new(cv_name.as_str(), variant.discriminant.span());
+            n_cv += 1;
+            compute_values.push(quote! {
+                let #ident:#repr = #disc_expr;
+            });
+            disc_expr = ident.to_token_stream();
+        }
+
         normal_variants_from.push(quote! {
-            #disc => Self::#ident,
+            #disc_expr => Self::#ident,
         });
-        println!("Normal: {:?} = {:?}", ident, disc);
         normal_variants_into.push(quote! {
-            Self::#ident => #disc,
+            Self::#ident => #disc_expr,
         })
     }
 
@@ -208,6 +216,7 @@ pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
     let expanded = quote! {
         impl ::core::convert::From<#repr> for #ident {
             fn from(number: #repr) -> Self {
+                #(#compute_values)*
                 match number {
                     #(#normal_variants_from)*
                     #unknown_variant_from
@@ -217,6 +226,7 @@ pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
 
         impl ::core::convert::Into<#repr> for #ident {
             fn into(self) -> #repr {
+                #(#compute_values)*
                 match self {
                     #(#normal_variants_into)*
                     #unknown_variant_into
@@ -246,17 +256,29 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
     let repr = enum_info.repr;
     let ident = enum_info.ident;
 
+    let mut compute_values = Vec::new();
+    let mut n_cv = 0;
     let mut normal_variants_from = Vec::new();
     let mut normal_variants_into = Vec::new();
     for variant in enum_info.normals {
-        let disc = variant.discriminant;
+        let mut disc_expr = variant.discriminant.to_expr().to_token_stream();
         let ident = variant.ident;
 
+        if variant.discriminant.have_base() {
+            let cv_name = format!("compute_{}", n_cv);
+            let ident = Ident::new(cv_name.as_str(), variant.discriminant.span());
+            n_cv += 1;
+            compute_values.push(quote! {
+                let #ident:#repr = #disc_expr;
+            });
+            disc_expr = ident.to_token_stream();
+        }
+
         normal_variants_from.push(quote! {
-            #disc => Ok(Self::#ident),
+            #disc_expr => Ok(Self::#ident),
         });
         normal_variants_into.push(quote! {
-            Self::#ident => Ok(#disc),
+            Self::#ident => Ok(#disc_expr),
         })
     }
 
@@ -281,6 +303,7 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
         impl ::core::convert::TryFrom<#repr> for #ident {
             type Error = zhi_enum::UnknownVariantError;
             fn try_from(v: #repr) -> ::core::result::Result<Self, Self::Error> {
+                #(#compute_values)*
                 match v {
                     #(#normal_variants_from)*
                     #unknown_variant_try_from
@@ -291,6 +314,7 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
         impl ::core::convert::TryInto<#repr> for #ident {
             type Error = ::zhi_enum::UnknownVariantError;
             fn try_into(self) -> ::core::result::Result<#repr, Self::Error> {
+                #(#compute_values)*
                 match self {
                     #(#normal_variants_into)*
                     #unknown_variant_try_into
