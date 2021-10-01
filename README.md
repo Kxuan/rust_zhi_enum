@@ -74,5 +74,18 @@ assert_eq!(NumberTryConvert::try_from(21u8).unwrap(), NumberTryConvert::TwentyOn
 * If you have not defined, the `.try_into()` will returns `Err(UnknownVariantError{})`, and the
   `.into()` will call `panic!`.
 
+# FAQ
+* Error E0658
+
+  If you get this error: 
+  ```
+  error[E0658]: custom discriminant values are not allowed in enums with tuple or struct variants
+    --> <source>:2:9
+  ```
+  It means that your rustc version is lower than `1.56`.
+  
+  You can just upgrade your rustc. Or if you don't want upgrade, you have to add `#![feature(arbitrary_enum_discriminant)]` to your project.
+
+
 ## License
 BSD-3-Clause
