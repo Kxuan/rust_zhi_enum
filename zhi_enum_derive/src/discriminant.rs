@@ -27,7 +27,11 @@ impl Discriminant {
                 parse_quote! { #literal }
             }
             Some(base) => {
-                parse_quote! { #base + #literal }
+                if self.v == 0 {
+                    return base.clone()
+                } else {
+                    parse_quote! { #base + #literal }
+                }
             }
         }
     }

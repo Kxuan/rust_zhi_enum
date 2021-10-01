@@ -179,11 +179,11 @@ pub fn derive_enum_convert(input: TokenStream) -> TokenStream {
         let ident = variant.ident;
 
         if variant.discriminant.have_base() {
-            let cv_name = format!("compute_{}", n_cv);
+            let cv_name = format!("ZHI_ENUM_COMPUTED_{}", n_cv);
             let ident = Ident::new(cv_name.as_str(), variant.discriminant.span());
             n_cv += 1;
             compute_values.push(quote! {
-                let #ident:#repr = #disc_expr;
+                const #ident:#repr = #disc_expr;
             });
             disc_expr = ident.to_token_stream();
         }
@@ -265,11 +265,11 @@ pub fn derive_enum_try_convert(input: TokenStream) -> TokenStream {
         let ident = variant.ident;
 
         if variant.discriminant.have_base() {
-            let cv_name = format!("compute_{}", n_cv);
+            let cv_name = format!("ZHI_ENUM_COMPUTED_{}", n_cv);
             let ident = Ident::new(cv_name.as_str(), variant.discriminant.span());
             n_cv += 1;
             compute_values.push(quote! {
-                let #ident:#repr = #disc_expr;
+                const #ident:#repr = #disc_expr;
             });
             disc_expr = ident.to_token_stream();
         }

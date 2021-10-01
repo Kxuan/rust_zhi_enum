@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8b668a1-7e76-4dcc-85d5-ed1baff8621a" name="Changes" comment="renamed to zhi_enum">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhi_enum/tests/test.rs" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum/tests/test.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zhi_enum_derive/src/discriminant.rs" beforeDir="false" afterPath="$PROJECT_DIR$/zhi_enum_derive/src/discriminant.rs" afterDir="false" />
@@ -88,11 +89,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Cargo.Test test">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Test test (1)" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="command" value="test --package zhi_enum --test expanded test -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -123,6 +119,11 @@
       <option name="redirectInputPath" value="" />
       <method v="2">
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
@@ -158,6 +159,7 @@
       <workItem from="1632756931952" duration="31000" />
       <workItem from="1632757570451" duration="3476000" />
       <workItem from="1632843904019" duration="3994000" />
+      <workItem from="1633094953092" duration="1430000" />
     </task>
     <task id="LOCAL-00001" summary="renamed to zhi_enum">
       <created>1632760542950</created>
