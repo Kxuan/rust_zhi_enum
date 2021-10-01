@@ -1,8 +1,10 @@
 [package]
 name = "zhi_enum"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "BSD-3-Clause"
+description = "derive macros to easily use enum"
+repository = "https://github.com/Kxuan/rust_zhi_enum"
 
 [lib]
 
