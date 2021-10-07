@@ -1,7 +1,7 @@
 [package]
 name = "zhi_enum"
-version = "0.1.1"
-edition = "2021"
+version = "0.1.2"
+edition = "2018"
 license = "BSD-3-Clause"
 description = "derive macros to easily use enum"
 repository = "https://github.com/Kxuan/rust_zhi_enum"
@@ -9,7 +9,7 @@ repository = "https://github.com/Kxuan/rust_zhi_enum"
 [lib]
 
 [dependencies]
-zhi_enum_derive = { version = "0.1.0", path = "../zhi_enum_derive" }
+zhi_enum_derive = { version = "0.1.2", path = "../zhi_enum_derive" }
 
 
 [dev-dependencies]

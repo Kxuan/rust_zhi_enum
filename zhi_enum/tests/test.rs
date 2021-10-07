@@ -1,4 +1,5 @@
 use zhi_enum::{EnumConvert, EnumTryConvert};
+use std::convert::TryFrom;
 
 #[derive(Debug, Ord, PartialOrd, Eq, PartialEq, EnumConvert)]
 #[repr(u8)]
