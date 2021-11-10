@@ -59,6 +59,9 @@ assert_eq!(NumberConvert::from(3u8), NumberConvert::Three);
 
 use std::convert::TryFrom;
 assert_eq!(NumberTryConvert::try_from(21u8).unwrap(), NumberTryConvert::TwentyOne);
+
+assert_eq!(NumberConvert::from(15u8), NumberConvert::Unknown(15));
+assert_eq!(NumberTryConvert::try_from(15u8).unwrap(), NumberTryConvert::Unknown(15));
 ```
 
 ## Handle unknown discriminant
@@ -84,9 +87,11 @@ assert_eq!(NumberTryConvert::try_from(21u8).unwrap(), NumberTryConvert::TwentyOn
   error[E0658]: custom discriminant values are not allowed in enums with tuple or struct variants
     --> <source>:2:9
   ```
-  It means that your rustc version is lower than `1.56`.
+  ~~It means that your rustc version is lower than `1.56`.~~
   
-  You can just upgrade your rustc. Or if you don't want upgrade, you have to add `#![feature(arbitrary_enum_discriminant)]` to your project.
+  ~~You can just upgrade your rustc. Or if you don't want upgrade, you have to add `#![feature(arbitrary_enum_discriminant)]` to your project.~~
+
+  `arbitrary_enum_discriminant` is [reverted](https://github.com/rust-lang/rust/pull/89884), you have to add `#![feature(arbitrary_enum_discriminant)]` to your project.
 
 
 ## License

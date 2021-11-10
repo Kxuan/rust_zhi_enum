@@ -1,3 +1,4 @@
+#![feature(arbitrary_enum_discriminant)]
 use zhi_enum::{EnumConvert, EnumTryConvert};
 use std::convert::TryFrom;
 
@@ -46,5 +47,8 @@ fn test() {
     assert_eq!(NumberTryConvert::TwentyOne.try_into_u8().unwrap(), 21u8);
 
     assert_eq!(NumberConvert::from(3u8), NumberConvert::Three);
-    assert_eq!(NumberTryConvert::try_from(21u8).unwrap(), NumberTryConvert::TwentyOne)
+    assert_eq!(NumberTryConvert::try_from(21u8).unwrap(), NumberTryConvert::TwentyOne);
+
+    assert_eq!(NumberConvert::from(15u8), NumberConvert::Unknown(15));
+    assert_eq!(NumberTryConvert::try_from(15u8).unwrap(), NumberTryConvert::Unknown(15));
 }
